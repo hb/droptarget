@@ -15,7 +15,7 @@ class MainWindow(object):
     def __init__(self):
         # window
         self._window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self._window.set_size_request(400, 600)
+        self._window.set_size_request(800, 600)
         self._window.connect("destroy", gtk.main_quit)
         self._window.set_border_width(5)
         
@@ -44,7 +44,7 @@ class MainWindow(object):
 
     def _drag_data_received_cb(self, widget, context, x, y, selection, targetType, time):
         if selection.target in self._type_dict:
-            label = gtk.Label(selection.data)
+            label = gtk.Label(selection.data.encode('utf8').replace("\r", "").replace("\0", "\\0"))
             label.show()
             self._type_dict[selection.target].add(label)
         
